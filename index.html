@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRILLADO · Carta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FBF6EC;
+    --crema2:#F4EBDC;
+    --vino:#6E1B2A;
+    --vino2:#8A3242;
+    --tinta:#3A2A26;
+    --muted:#7A6660;
+    --linea:rgba(110,27,42,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--crema);
+    color:var(--tinta);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight:300;
+    line-height:1.5;
+    padding:14px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .marco{
+    max-width:640px;
+    margin:0 auto;
+    border:1px solid var(--vino);
+    outline:1px solid var(--vino);
+    outline-offset:5px;
+    border-radius:14px;
+    padding:30px 18px 26px;
+    background:var(--crema);
+  }
+
+  /* ---------- cabecera ---------- */
+  header{text-align:center;padding-bottom:18px}
+  .hoja{color:var(--vino);font-size:14px;letter-spacing:.5em;opacity:.75}
+  h1{
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:700;
+    font-size:1.95rem;
+    letter-spacing:.16em;
+    color:var(--vino);
+    margin:8px 0 6px;
+  }
+  .lema{
+    font-size:.58rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--vino2);
+  }
+  .lema::before,.lema::after{content:"\2665";margin:0 7px;font-size:.66rem}
+
+  /* ---------- pestañas ---------- */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:5;
+    display:flex;
+    gap:0;
+    overflow-x:auto;
+    background:var(--crema);
+    border-top:1px solid var(--linea);
+    border-bottom:1px solid var(--linea);
+    margin:0 -18px 6px;
+    padding:0 10px;
+    scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;
+    appearance:none;
+    background:none;
+    border:0;
+    border-bottom:2px solid transparent;
+    font-family:'Inter',sans-serif;
+    font-size:.6rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:12px 11px 10px;
+    cursor:pointer;
+    transition:color .15s ease,border-color .15s ease;
+  }
+  .tab.activo{color:var(--vino);border-bottom-color:var(--vino)}
+  .tab:focus-visible{outline:2px solid var(--vino);outline-offset:-3px}
+
+  /* ---------- secciones ---------- */
+  section{scroll-margin-top:52px;padding-top:14px}
+  h2{
+    font-family:'Great Vibes',cursive;
+    font-weight:400;
+    font-size:1.9rem;
+    color:var(--vino);
+    text-align:center;
+    margin:6px 0 4px;
+    line-height:1.1;
+  }
+  .filete{
+    display:flex;align-items:center;justify-content:center;
+    gap:9px;margin:0 0 8px;color:var(--vino);opacity:.45;
+  }
+  .filete::before,.filete::after{content:"";height:1px;flex:1;background:currentColor}
+
+  /* ---------- fila de producto ---------- */
+  .item{
+    display:grid;
+    grid-template-columns:58px 1fr auto;
+    align-items:center;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px dotted var(--linea);
+  }
+  .item:last-child{border-bottom:none}
+  .item.texto-solo{grid-template-columns:1fr auto}
+
+  .precio.pendiente{color:var(--muted);font-weight:600;letter-spacing:.14em}
+
+  .sub{
+    font-family:'Inter',sans-serif;
+    font-size:.56rem;
+    font-weight:500;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--vino2);
+    margin:18px 0 2px;
+    padding-bottom:5px;
+    border-bottom:1px solid var(--linea);
+  }
+  .sub:first-of-type{margin-top:4px}
+
+  .precio.doble{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:2px;
+    font-size:.92rem;
+    line-height:1.2;
+  }
+  .precio.doble small{
+    font-family:'Inter',sans-serif;
+    font-size:.5rem;
+    font-weight:400;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-left:4px;
+  }
+
+  .expositor{
+    margin:16px 0 0;
+    padding:11px 14px;
+    border:1px dashed rgba(110,27,42,.32);
+    border-radius:10px;
+    text-align:center;
+    font-size:.72rem;
+    line-height:1.5;
+    color:var(--muted);
+  }
+  .expositor b{
+    display:block;
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:600;
+    font-size:.82rem;
+    letter-spacing:.02em;
+    color:var(--vino);
+    margin-bottom:2px;
+  }
+
+  .thumb{
+    appearance:none;
+    padding:0;
+    border:1px solid var(--linea);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--crema2);
+    width:58px;
+    height:58px;
+    cursor:zoom-in;
+    display:block;
+    transition:border-color .15s ease;
+  }
+  .thumb:hover{border-color:var(--vino)}
+  .thumb:focus-visible{outline:2px solid var(--vino);outline-offset:2px}
+  .thumb img{
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:50% 62%;
+    display:block;
+  }
+
+  .texto{min-width:0}
+  .nombre{
+    font-family:'Playfair Display',Georgia,serif;
+    font-size:.98rem;
+    font-weight:600;
+    color:var(--tinta);
+    display:block;
+    line-height:1.25;
+  }
+  .desc{
+    display:block;
+    font-size:.72rem;
+    color:var(--muted);
+    letter-spacing:.01em;
+    margin-top:2px;
+  }
+  .alergenos{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:4px;
+    margin-top:5px;
+  }
+  .alg{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    border:1px solid rgba(110,27,42,.30);
+    border-radius:999px;
+    background:rgba(110,27,42,.05);
+    padding:1.5px 7px 1.5px 5px;
+    font-family:'Inter',sans-serif;
+    font-size:.55rem;
+    font-weight:500;
+    letter-spacing:.04em;
+    color:var(--vino2);
+    line-height:1.4;
+    white-space:nowrap;
+  }
+  .alg .ic{
+    width:10px;
+    height:10px;
+    stroke:var(--vino2);
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    flex:0 0 auto;
+  }
+  .alg-nota{
+    font-family:'Inter',sans-serif;
+    font-size:.55rem;
+    letter-spacing:.02em;
+    color:var(--muted);
+  }
+  .precio{
+    font-family:'Playfair Display',Georgia,serif;
+    font-size:1rem;
+    font-weight:700;
+    color:var(--vino);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .aviso{
+    text-align:center;
+    font-size:.66rem;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin:18px 0 0;
+  }
+
+  .nota{
+    margin:22px 0 0;
+    text-align:center;
+    font-family:'Great Vibes',cursive;
+    font-size:1.3rem;
+    color:var(--vino2);
+    line-height:1.4;
+  }
+  footer{
+    text-align:center;
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid var(--linea);
+    font-size:.56rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--vino2);
+  }
+
+  /* ---------- visor del cartel ---------- */
+  .visor{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    background:rgba(32,16,20,.94);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+  }
+  .visor.abierto{display:flex}
+  .visor img{
+    max-width:100%;
+    max-height:88vh;
+    border-radius:8px;
+    display:block;
+  }
+  .cerrar{
+    position:absolute;
+    top:12px;right:14px;
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1px solid rgba(251,246,236,.5);
+    background:none;
+    color:var(--crema);
+    font-size:1.1rem;
+    line-height:1;
+    cursor:pointer;
+  }
+  .cerrar:focus-visible{outline:2px solid var(--crema);outline-offset:2px}
+
+  @media (max-width:380px){
+    h1{font-size:1.65rem}
+    h2{font-size:1.65rem}
+    .marco{padding:24px 13px 22px}
+    nav{margin:0 -13px 6px}
+    .item{grid-template-columns:50px 1fr auto;gap:10px}
+    .thumb{width:50px;height:50px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="a-gluten" viewBox="0 0 24 24">
+      <path d="M12 22V7"/>
+      <path d="M12 7C12 4.8 13.2 3.2 15.5 2.5C15.5 4.8 14.3 6.3 12 7Z"/>
+      <path d="M12 7C12 4.8 10.8 3.2 8.5 2.5C8.5 4.8 9.7 6.3 12 7Z"/>
+      <path d="M12 12C12 9.8 13.2 8.2 15.5 7.5C15.5 9.8 14.3 11.3 12 12Z"/>
+      <path d="M12 12C12 9.8 10.8 8.2 8.5 7.5C8.5 9.8 9.7 11.3 12 12Z"/>
+      <path d="M12 17C12 14.8 13.2 13.2 15.5 12.5C15.5 14.8 14.3 16.3 12 17Z"/>
+      <path d="M12 17C12 14.8 10.8 13.2 8.5 12.5C8.5 14.8 9.7 16.3 12 17Z"/>
+    </symbol>
+    <symbol id="a-leche" viewBox="0 0 24 24">
+      <path d="M12 3.5C15 7.7 17.5 10.5 17.5 13.5A5.5 5.5 0 0 1 6.5 13.5C6.5 10.5 9 7.7 12 3.5Z"/>
+    </symbol>
+    <symbol id="a-huevo" viewBox="0 0 24 24">
+      <path d="M12 3.5C15.3 3.5 18 8.6 18 12.5A6 6 0 0 1 6 12.5C6 8.6 8.7 3.5 12 3.5Z"/>
+    </symbol>
+    <symbol id="a-pescado" viewBox="0 0 24 24">
+      <path d="M2.5 12C5 8.8 8 7 11.5 7C15.5 7 18.8 9.3 21.5 12C18.8 14.7 15.5 17 11.5 17C8 17 5 15.2 2.5 12Z"/>
+      <path d="M15.5 8.8L21 5.5L19.7 12L21 18.5L15.5 15.2"/>
+      <circle cx="7.5" cy="11" r="0.7" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="a-frutos" viewBox="0 0 24 24">
+      <path d="M12 3C16.5 3 19.5 5.2 19.5 8.2H4.5C4.5 5.2 7.5 3 12 3Z"/>
+      <path d="M4.5 8.2C4.5 14.2 7.7 18.4 12 21C16.3 18.4 19.5 14.2 19.5 8.2"/>
+    </symbol>
+    <symbol id="a-cacahuete" viewBox="0 0 24 24">
+      <path d="M9.8 12C8 9 8.8 3.5 12 3.5C15.2 3.5 16 9 14.2 12C16 15 15.2 20.5 12 20.5C8.8 20.5 8 15 9.8 12Z"/>
+      <circle cx="10.8" cy="7" r="0.6" fill="currentColor" stroke="none"/>
+      <circle cx="13.2" cy="7" r="0.6" fill="currentColor" stroke="none"/>
+      <circle cx="10.8" cy="17" r="0.6" fill="currentColor" stroke="none"/>
+      <circle cx="13.2" cy="17" r="0.6" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="a-sulfitos" viewBox="0 0 24 24">
+      <path d="M8 3H16C16 7.6 14.2 9.9 12 10.5V19H15V21H9V19H12V10.5C9.8 9.9 8 7.6 8 3Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="marco">
+
+  <header>
+    <div class="hoja">❦</div>
+    <h1>TRILLADO</h1>
+    <div class="lema">Café de especialidad y bollería artesanal</div>
+  </header>
+
+  <nav aria-label="Secciones de la carta">
+    <button class="tab activo" data-target="cafes">Cafés</button>
+    <button class="tab" data-target="especiales">Especiales</button>
+    <button class="tab" data-target="frios">Fríos</button>
+    <button class="tab" data-target="bote">Bebidas de bote</button>
+    <button class="tab" data-target="infusiones">Infusiones</button>
+    <button class="tab" data-target="desayunos">Desayunos</button>
+    <button class="tab" data-target="tostadas">Tostadas</button>
+    <button class="tab" data-target="tostadas-especiales">Tostadas especiales</button>
+    <button class="tab" data-target="bocadillos">Bocadillos</button>
+  </nav>
+
+  <!-- ============ CAFÉS ============ -->
+  <section id="cafes">
+    <h2>Cafés</h2>
+    <div class="filete">❦</div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/875522db-8dda-4a8c-a32d-1d77d1d253c9.png" data-alt="Cartel del espresso">
+        <img src="https://cdn.abacus.ai/images/875522db-8dda-4a8c-a32d-1d77d1d253c9.png" alt="Espresso Trillado en vaso alargado de cristal" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Espresso</span>
+        <span class="desc">Solo, intenso y con crema</span>
+      </div>
+      <div class="precio">1,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/14da18d1-e63f-4a74-b39a-34a4837e8dcd.png" data-alt="Cartel del cortado">
+        <img src="https://cdn.abacus.ai/images/14da18d1-e63f-4a74-b39a-34a4837e8dcd.png" alt="Cortado Trillado en tacita de cristal" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Cortado</span>
+        <span class="desc">Espresso con un toque de leche</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,30€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/d39a1dfc-3f56-498a-bc8c-c00b0e308318.png" data-alt="Cartel del café con leche">
+        <img src="https://cdn.abacus.ai/images/d39a1dfc-3f56-498a-bc8c-c00b0e308318.png" alt="Café con leche Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Café con leche</span>
+        <span class="desc">Cremoso, al estilo de siempre</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,50€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/9390a728-af4e-4a6c-9bf0-2bc5939f175f.png" data-alt="Cartel del manchado">
+        <img src="https://cdn.abacus.ai/images/9390a728-af4e-4a6c-9bf0-2bc5939f175f.png" alt="Manchado Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Manchado</span>
+        <span class="desc">20% café · 80% leche</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,60€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/b8e94d30-3950-4038-b6c8-9ce9e4bae81f.png" data-alt="Cartel del capuchino">
+        <img src="https://cdn.abacus.ai/images/b8e94d30-3950-4038-b6c8-9ce9e4bae81f.png" alt="Capuchino Trillado con cacao espolvoreado" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Capuchino</span>
+        <span class="desc">Con cacao espolvoreado por encima</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,90€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/032e5709-3e80-4ccf-b189-b562e93a6f51.png" data-alt="Cartel del americano">
+        <img src="https://cdn.abacus.ai/images/032e5709-3e80-4ccf-b189-b562e93a6f51.png" alt="Americano Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Americano</span>
+        <span class="desc">Café largo, suave y aromático</span>
+      </div>
+      <div class="precio">1,40€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/72ff1fce-0155-45e0-9446-8ebc36f68e7a.png" data-alt="Cartel del café bombón">
+        <img src="https://cdn.abacus.ai/images/72ff1fce-0155-45e0-9446-8ebc36f68e7a.png" alt="Café bombón Trillado en tacita corta de cristal" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Café bombón</span>
+        <span class="desc">Leche condensada y espresso</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,60€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/d4a1f21b-326e-40c8-8a18-838b2c62c2b8.png" data-alt="Cartel del carajillo">
+        <img src="https://cdn.abacus.ai/images/d4a1f21b-326e-40c8-8a18-838b2c62c2b8.png" alt="Carajillo Trillado en tacita de cristal" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Carajillo</span>
+        <span class="desc">Espresso con un chorrito de licor</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/2d264c55-6249-41e8-a269-83be7af67e1a.png" data-alt="Cartel de la leche caliente">
+        <img src="https://cdn.abacus.ai/images/2d264c55-6249-41e8-a269-83be7af67e1a.png" alt="Leche caliente Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Leche caliente</span>
+        <span class="desc">100% leche, con espuma suave</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,10€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/dae4c021-f9ae-496e-8883-7c749f9689fd.png" data-alt="Cartel del colacao">
+        <img src="https://cdn.abacus.ai/images/dae4c021-f9ae-496e-8883-7c749f9689fd.png" alt="Colacao Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Colacao</span>
+        <span class="desc">90% leche · 10% cacao</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,60€</div>
+    </div>
+  </section>
+
+  <!-- ============ ESPECIALES ============ -->
+  <section id="especiales">
+    <h2>Especiales</h2>
+    <div class="filete">❦</div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/af47b3c2-43c5-410e-b917-d062be5ef2d4.png" data-alt="Cartel del té matcha con leche">
+        <img src="https://cdn.abacus.ai/images/af47b3c2-43c5-410e-b917-d062be5ef2d4.png" alt="Té matcha con leche Trillado en taza de cerámica blanca" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Té matcha con leche</span>
+        <span class="desc">90% leche · 10% matcha</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,00€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/4ee79fc0-a9b8-415b-af8e-476edc0b8c50.png" data-alt="Cartel del Viernes">
+        <img src="https://cdn.abacus.ai/images/4ee79fc0-a9b8-415b-af8e-476edc0b8c50.png" alt="Bebida especial Viernes con dulce de leche, espresso y nata" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Viernes</span>
+        <span class="desc">Dulce de leche, espresso y nata montada</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,50€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/dd11b58a-9754-482b-99f6-b5a5c9714013.png" data-alt="Cartel del Viernes de Nutella">
+        <img src="https://cdn.abacus.ai/images/dd11b58a-9754-482b-99f6-b5a5c9714013.png" alt="Bebida especial Viernes de Nutella con nata montada" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Viernes de Nutella</span>
+        <span class="desc">Nutella, espresso y nata montada</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-frutos"></use></svg>Frutos de cáscara</span></span>
+      </div>
+      <div class="precio">2,50€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/07e062d6-c29b-4cff-bf0d-98880d156000.png" data-alt="Cartel del café con pistacho">
+        <img src="https://cdn.abacus.ai/images/07e062d6-c29b-4cff-bf0d-98880d156000.png" alt="Café con pistacho Trillado en taza de cerámica con el borde bañado en chocolate y crocante" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Café con pistacho</span>
+        <span class="desc">Espresso, crema de pistacho y borde de chocolate con crocante</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-frutos"></use></svg>Frutos de cáscara</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-cacahuete"></use></svg>Cacahuete</span></span>
+      </div>
+      <div class="precio">2,50€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/b98101b0-36b0-4c0d-866d-2dd17ad085e3.png" data-alt="Cartel del chocolate al estilo Trillado">
+        <img src="https://cdn.abacus.ai/images/b98101b0-36b0-4c0d-866d-2dd17ad085e3.png" alt="Chocolate al estilo Trillado con chocolate de verdad y leche cremada" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Chocolate al estilo Trillado</span>
+        <span class="desc">Chocolate de verdad disuelto en agua caliente y leche cremada encima</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,00€</div>
+    </div>
+  </section>
+
+  <!-- ============ FRÍOS ============ -->
+  <section id="frios">
+    <h2>Bebidas frías</h2>
+    <div class="filete">❦</div>
+
+    <h3 class="sub">Iced Matcha</h3>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/6ea44b9f-a2b7-47ac-828a-cc9690307179.png" data-alt="Cartel del Iced Matcha Vainilla">
+        <img src="https://cdn.abacus.ai/images/6ea44b9f-a2b7-47ac-828a-cc9690307179.png" alt="Iced Matcha Vainilla Trillado en vaso alto con matcha y leche" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Vainilla</span>
+        <span class="desc">Matcha, vainilla de Madagascar y leche</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,90€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/85e2d3ae-1020-431d-a025-cc0b0cab99b6.png" data-alt="Cartel del Iced Matcha Arándano">
+        <img src="https://cdn.abacus.ai/images/85e2d3ae-1020-431d-a025-cc0b0cab99b6.png" alt="Iced Matcha Arándano Trillado en vaso alto con mermelada de arándano" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Arándano</span>
+        <span class="desc">Matcha, mermelada de arándano y leche</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/c390fe19-c638-402d-96a2-be2dfff1cd14.png" data-alt="Cartel del Iced Matcha Coco">
+        <img src="https://cdn.abacus.ai/images/c390fe19-c638-402d-96a2-be2dfff1cd14.png" alt="Iced Matcha Coco Trillado en vaso alto con agua de coco y foam" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Coco</span>
+        <span class="desc">Matcha, agua de coco y foam</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">el foam lleva leche</span></span>
+      </div>
+      <div class="precio">4,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/208b6263-4e78-4e88-a6a6-39ca79921007.png" data-alt="Cartel del Iced Matcha Frambuesa">
+        <img src="https://cdn.abacus.ai/images/208b6263-4e78-4e88-a6a6-39ca79921007.png" alt="Iced Matcha Frambuesa Trillado en vaso alto con frambuesa y leche" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Frambuesa</span>
+        <span class="desc">Matcha, leche y frambuesa</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/06f56b94-ee61-40bf-af79-990d736a91e7.png" data-alt="Cartel del Iced Caramel Matcha">
+        <img src="https://cdn.abacus.ai/images/06f56b94-ee61-40bf-af79-990d736a91e7.png" alt="Iced Caramel Matcha Trillado en vaso alto con base de caramelo y foam" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Caramel Matcha</span>
+        <span class="desc">Matcha, leche, base de caramelo y foam</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/b247d2e8-b28e-458d-bbf1-d250345c2db0.png" data-alt="Cartel del Iced Matcha Naranja">
+        <img src="https://cdn.abacus.ai/images/b247d2e8-b28e-458d-bbf1-d250345c2db0.png" alt="Iced Matcha Naranja Trillado en vaso alto con zumo de naranja natural y foam" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Naranja</span>
+        <span class="desc">Matcha, zumo de naranja natural y foam</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">el foam lleva leche</span></span>
+      </div>
+      <div class="precio">4,30€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/a4805eb8-f7fb-4c85-97fb-b585336b4223.png" data-alt="Cartel del Iced Matcha Choco Pistacho">
+        <img src="https://cdn.abacus.ai/images/a4805eb8-f7fb-4c85-97fb-b585336b4223.png" alt="Iced Matcha Choco Pistacho Trillado en vaso alto con crema de pistacho y chocolate blanco" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Matcha Choco Pistacho</span>
+        <span class="desc">Matcha, leche, pistacho y chocolate blanco</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-frutos"></use></svg>Frutos de cáscara</span></span>
+      </div>
+      <div class="precio">4,50€</div>
+    </div>
+
+    <h3 class="sub">Frappés</h3>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/0897941d-bf2f-40c4-965b-9eac12cc59e6.png" data-alt="Cartel del Frappé de Café">
+        <img src="https://cdn.abacus.ai/images/0897941d-bf2f-40c4-965b-9eac12cc59e6.png" alt="Frappé de Café Trillado con nata y cacao espolvoreado" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Frappé de Café</span>
+        <span class="desc">Café, leche y cacao</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,50€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/5724e677-2231-4cba-96e0-ea02e8611cec.png" data-alt="Cartel del Frappé de Matcha Trillado">
+        <img src="https://cdn.abacus.ai/images/5724e677-2231-4cba-96e0-ea02e8611cec.png" alt="Frappé de Matcha Trillado con nata y matcha espolvoreado" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Frappé de Matcha Trillado</span>
+        <span class="desc">Matcha, leche y frambuesa</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,50€</div>
+    </div>
+
+    <h3 class="sub">Café frío</h3>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/95d2ff22-238a-47e5-8f08-4247eb7c1234.png" data-alt="Cartel del Iced Coffee Latte">
+        <img src="https://cdn.abacus.ai/images/95d2ff22-238a-47e5-8f08-4247eb7c1234.png" alt="Iced Coffee Latte Trillado en vaso alto con café, leche y hielo" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Coffee Latte</span>
+        <span class="desc">Café, leche y hielo</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,20€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/af42711c-065b-4607-a5fb-9bff23195688.png" data-alt="Cartel del Iced Mocha Latte">
+        <img src="https://cdn.abacus.ai/images/af42711c-065b-4607-a5fb-9bff23195688.png" alt="Iced Mocha Latte Trillado en vaso alto con café, leche y sirope de chocolate" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Mocha Latte</span>
+        <span class="desc">Café, leche y hielo</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,80€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/0e65f1f7-0936-46e0-a132-182ecec50375.png" data-alt="Cartel del Iced Caramel Latte">
+        <img src="https://cdn.abacus.ai/images/0e65f1f7-0936-46e0-a132-182ecec50375.png" alt="Iced Caramel Latte Trillado en vaso alto con café, leche y caramelo" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Caramel Latte</span>
+        <span class="desc">Café, leche y hielo</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,80€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/be89d595-fff0-425f-bcb9-8858016b2bb4.png" data-alt="Cartel del Iced Nutella Latte">
+        <img src="https://cdn.abacus.ai/images/be89d595-fff0-425f-bcb9-8858016b2bb4.png" alt="Iced Nutella Latte Trillado en vaso alto con café, leche y Nutella" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Iced Nutella Latte</span>
+        <span class="desc">Café, leche y hielo</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-frutos"></use></svg>Frutos de cáscara</span></span>
+      </div>
+      <div class="precio">4,20€</div>
+    </div>
+
+    <h3 class="sub">Smoothies</h3>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/944a9a7a-7586-4a95-850b-ab786bb6ca2c.png" data-alt="Cartel del Smoothie de Lulo">
+        <img src="https://cdn.abacus.ai/images/944a9a7a-7586-4a95-850b-ab786bb6ca2c.png" alt="Smoothie de lulo Trillado en vaso alto con fruta natural" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Smoothie de Lulo</span>
+        <span class="desc">Fruta natural</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble">
+        <span>3,50€<small>agua</small></span>
+        <span>4,00€<small>leche</small></span>
+      </div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/d17fb642-c4e4-4d7d-86e0-6aa0b0a781c8.png" data-alt="Cartel del Smoothie de Guanábana">
+        <img src="https://cdn.abacus.ai/images/d17fb642-c4e4-4d7d-86e0-6aa0b0a781c8.png" alt="Smoothie de guanábana Trillado en vaso alto con fruta natural" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Smoothie de Guanábana</span>
+        <span class="desc">Fruta natural</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble">
+        <span>3,50€<small>agua</small></span>
+        <span>4,00€<small>leche</small></span>
+      </div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/ffd7dc4e-7e37-4079-a92b-2080bd3db7dc.png" data-alt="Cartel del Smoothie de Fresa">
+        <img src="https://cdn.abacus.ai/images/ffd7dc4e-7e37-4079-a92b-2080bd3db7dc.png" alt="Smoothie de fresa Trillado en vaso alto con fresas naturales" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Smoothie de Fresa</span>
+        <span class="desc">Fruta natural</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble">
+        <span>3,50€<small>agua</small></span>
+        <span>4,00€<small>leche</small></span>
+      </div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/b6fb58c4-32ad-4b82-a0d5-e9fd0f1c9797.png" data-alt="Cartel del Smoothie de Maracuyá">
+        <img src="https://cdn.abacus.ai/images/b6fb58c4-32ad-4b82-a0d5-e9fd0f1c9797.png" alt="Smoothie de maracuyá Trillado en vaso alto con fruta natural" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Smoothie de Maracuyá</span>
+        <span class="desc">Fruta natural</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble">
+        <span>3,50€<small>agua</small></span>
+        <span>4,00€<small>leche</small></span>
+      </div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/f68c0557-b986-4538-b5c9-98112aeb35e0.png" data-alt="Cartel del Smoothie de Mango">
+        <img src="https://cdn.abacus.ai/images/f68c0557-b986-4538-b5c9-98112aeb35e0.png" alt="Smoothie de mango Trillado en vaso alto con mango natural" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Smoothie de Mango</span>
+        <span class="desc">Fruta natural</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble">
+        <span>3,50€<small>agua</small></span>
+        <span>4,00€<small>leche</small></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEBIDAS DE BOTE ============ -->
+  <section id="bote">
+    <h2>Bebidas de bote</h2>
+    <div class="filete">❦</div>
+
+    <h3 class="sub">Cervezas</h3>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Amstel</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,40€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Cerveza 0,0</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Estrella 25 cl</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">2,00€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Heineken</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">2,20€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Mahou</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Radler</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tinto de verano</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-sulfitos"></use></svg>Sulfitos</span></span>
+      </div>
+      <div class="precio">2,50€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Pony Malta</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">2,40€</div>
+    </div>
+
+    <h3 class="sub">Refrescos</h3>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Agua</span>
+      </div>
+      <div class="precio">1,00€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Agua con gas</span>
+      </div>
+      <div class="precio">1,30€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Aquarius</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Coca-Cola</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Batido de chocolate</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,20€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Fanta</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Sprite</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Nestea</span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Zumo</span>
+        <span class="desc">Piña, melocotón o zanahoria</span>
+      </div>
+      <div class="precio">1,50€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Bifrutas</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,80€</div>
+    </div>
+  </section>
+
+  <!-- ============ INFUSIONES ============ -->
+  <section id="infusiones">
+    <h2>Infusiones</h2>
+    <div class="filete">❦</div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/45b6d2a4-f1d9-49be-99bd-5a519d13adc4.png" data-alt="Cartel Trillado de infusiones clásicas y especiales">
+        <img src="https://cdn.abacus.ai/images/45b6d2a4-f1d9-49be-99bd-5a519d13adc4.png" alt="Cartel de infusiones: manzanilla, menta, té negro, té verde con cereza japonesa y rooibos con naranja y canela" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Clásicas</span>
+        <span class="desc">Manzanilla, menta y té negro</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble"><span>1,20€<small>agua</small></span><span>1,80€<small>leche</small></span></div>
+    </div>
+
+    <h3 class="sub">Especiales</h3>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Té verde con cereza japonesa</span>
+        <span class="desc">Delicado y afrutado</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble"><span>1,50€<small>agua</small></span><span>2,00€<small>leche</small></span></div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Rooibos de naranja y canela</span>
+        <span class="desc">Sin teína, aromático y reconfortante</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg-nota">solo en la opción con leche</span></span>
+      </div>
+      <div class="precio doble"><span>1,50€<small>agua</small></span><span>2,00€<small>leche</small></span></div>
+    </div>
+  </section>
+
+  <!-- ============ DESAYUNOS ============ -->
+  <section id="desayunos">
+    <h2>Desayunos</h2>
+    <div class="filete">❦</div>
+
+    <h3 class="sub">Combos de desayuno</h3>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/460d60a4-fc33-4950-96ea-ee0ccd81fd39.png" data-alt="Cartel detallado de combos de desayuno con tostadas y bebida">
+        <img src="https://cdn.abacus.ai/images/460d60a4-fc33-4950-96ea-ee0ccd81fd39.png" alt="Cartel de combos de tostada de aceite o mantequilla, tostada con mermelada y tostada especial, con café o zumo" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Tostada de aceite o mantequilla</span>
+        <span class="desc">Con café 2,50€ · con zumo 3,50€</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio doble"><span>2,50€<small>café</small></span><span>3,50€<small>zumo</small></span></div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada de mantequilla y mermelada</span>
+        <span class="desc">Con café 3,00€ · con zumo 4,00€</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio doble"><span>3,00€<small>café</small></span><span>4,00€<small>zumo</small></span></div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada especial</span>
+        <span class="desc">Elige hasta 3 ingredientes · con café 4,00€ · con zumo 5,00€</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg-nota">según ingredientes</span></span>
+      </div>
+      <div class="precio doble"><span>4,00€<small>café</small></span><span>5,00€<small>zumo</small></span></div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada de tomate con café</span>
+        <span class="desc">Combo de desayuno</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">3,00€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/fb1d24d9-707f-4a2e-994a-4fee2465101d.png" data-alt="Cartel de desayuno con croissant curvo normal, café o zumo">
+        <img src="https://cdn.abacus.ai/images/fb1d24d9-707f-4a2e-994a-4fee2465101d.png" alt="Desayuno con croissant curvo normal, café TRILLADO y zumo, con combo de café a 2,50€ o zumo a 3,50€" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Croissant con bebida</span>
+        <span class="desc">Con café 2,50€ · con zumo 3,50€</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-huevo"></use></svg>Huevo</span></span>
+      </div>
+      <div class="precio doble"><span>2,50€<small>café</small></span><span>3,50€<small>zumo</small></span></div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/b1159b01-213f-41bc-825b-6f954ca109be.png" data-alt="Cartel del parfait de yogur con toppings a elegir">
+        <img src="https://cdn.abacus.ai/images/b1159b01-213f-41bc-825b-6f954ca109be.png" alt="Parfait de yogur con granola, copos de avena, nata y relleno a elegir" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Parfait de yogur</span>
+        <span class="desc">Yogur cremoso, granola, avena, nata y crocante de cacahuete. Elige frambuesa, chocolate, Nutella o pistacho.</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-frutos"></use></svg>Frutos de cáscara</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-cacahuete"></use></svg>Cacahuete</span></span>
+      </div>
+      <div class="precio">5,50€</div>
+    </div>
+
+    <p class="aviso">Las tostadas individuales y las tostadas especiales tienen también su propio apartado.</p>
+
+    <p class="expositor">
+      <b>Más bollería en el expositor</b>
+      La selección cambia cada día, así que no la ponemos en la carta: pregúntanos qué hay hoy.
+    </p>
+  </section>
+
+  <!-- ============ TOSTADAS ============ -->
+  <section id="tostadas">
+    <h2>Tostadas</h2>
+    <div class="filete">❦</div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con aceite</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,10€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con aceite y tomate</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">1,50€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con mantequilla</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,00€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con mantequilla y mermelada</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">1,20€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con jamón york</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">2,70€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con jamón york y queso</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con queso crema</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,20€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con jamón serrano</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span></span>
+      </div>
+      <div class="precio">2,70€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con atún</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-pescado"></use></svg>Pescado</span></span>
+      </div>
+      <div class="precio">2,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con atún y tomate</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-pescado"></use></svg>Pescado</span></span>
+      </div>
+      <div class="precio">2,90€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con atún y queso crema</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-pescado"></use></svg>Pescado</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,90€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con tomate y queso crema</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada con tomate, jamón serrano y queso</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">2,90€</div>
+    </div>
+  </section>
+
+  <!-- ============ TOSTADAS ESPECIALES ============ -->
+  <section id="tostadas-especiales">
+    <h2>Tostadas especiales</h2>
+    <div class="filete">❦</div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/3ec2e016-3c38-437d-b45d-e1dc4f657d0a.png" data-alt="Cartel de tostadas especiales: pollo con pesto y queso curado, y sobrasada con queso de cabra y miel">
+        <img src="https://cdn.abacus.ai/images/3ec2e016-3c38-437d-b45d-e1dc4f657d0a.png" alt="Cartel TRILLADO de tostadas especiales de pollo, pesto y queso curado y de sobrasada, queso de cabra y miel, ambas a 3,80 euros" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Tostada de pollo, pesto y queso curado</span>
+        <span class="desc">Pesto en la base, pollo en hebras y queso curado por encima</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,80€</div>
+    </div>
+
+    <div class="item texto-solo">
+      <div class="texto">
+        <span class="nombre">Tostada de sobrasada, queso de cabra y miel</span>
+        <span class="desc">Sobrasada, queso de cabra y un hilo de miel</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,80€</div>
+    </div>
+  </section>
+
+  <!-- ============ BOCADILLOS ============ -->
+  <section id="bocadillos">
+    <h2>Bocadillos</h2>
+    <div class="filete">❦</div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/718c4035-049b-41a1-b3c5-f0bf955fa21a.png" data-alt="Cartel del bocadillo de pollo">
+        <img src="https://cdn.abacus.ai/images/718c4035-049b-41a1-b3c5-f0bf955fa21a.png" alt="Bocadillo de pollo con pesto y queso" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Bocadillo de pollo</span>
+        <span class="desc">Pesto, pollo en hebras y queso</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">4,00€</div>
+    </div>
+
+    <div class="item">
+      <button class="thumb" data-full="https://cdn.abacus.ai/images/f681f576-18c4-4be1-b692-374ba37f150a.png" data-alt="Cartel del bocadillo serrano">
+        <img src="https://cdn.abacus.ai/images/f681f576-18c4-4be1-b692-374ba37f150a.png" alt="Bocadillo serrano con jamón y queso" loading="lazy">
+      </button>
+      <div class="texto">
+        <span class="nombre">Bocadillo serrano</span>
+        <span class="desc">Jamón serrano y queso</span>
+        <span class="alergenos"><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-gluten"></use></svg>Gluten</span><span class="alg"><svg class="ic" aria-hidden="true"><use href="#a-leche"></use></svg>Leche</span></span>
+      </div>
+      <div class="precio">3,70€</div>
+    </div>
+  </section>
+
+  <p class="aviso" id="fin-carta">Toca cualquier imagen para ver el cartel completo</p>
+
+  <p class="nota">Buen café, mejores días ♡</p>
+
+  <footer>Trillado · Café de especialidad</footer>
+
+</div>
+
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Cartel del producto">
+  <button class="cerrar" id="cerrar" aria-label="Cerrar">×</button>
+  <img id="visorImg" src="" alt="">
+</div>
+
+<script>
+  var visor = document.getElementById('visor');
+  var visorImg = document.getElementById('visorImg');
+
+  document.querySelectorAll('.thumb').forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      visorImg.src = boton.getAttribute('data-full');
+      visorImg.alt = boton.getAttribute('data-alt');
+      visor.classList.add('abierto');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function cerrarVisor() {
+    visor.classList.remove('abierto');
+    visorImg.removeAttribute('src');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('cerrar').addEventListener('click', cerrarVisor);
+  visor.addEventListener('click', function (e) {
+    if (e.target === visor) cerrarVisor();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') cerrarVisor();
+  });
+
+  var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var ordenSecciones = ['cafes','especiales','frios','bote','infusiones','desayunos','tostadas','tostadas-especiales','bocadillos'];
+  var puntoFinal = document.getElementById('fin-carta');
+  ordenSecciones.forEach(function (id) {
+    var seccion = document.getElementById(id);
+    if (seccion && puntoFinal && !seccion.contains(puntoFinal)) puntoFinal.parentNode.insertBefore(seccion, puntoFinal);
+  });
+
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var destino = document.getElementById(tab.getAttribute('data-target'));
+      if (destino) destino.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('activo'); });
+      tab.classList.add('activo');
+    });
+  });
+</script>
+
+</body>
+</html>
